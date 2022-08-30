@@ -3,7 +3,7 @@
 ## Add your pin to the map
 * Open index.ts
 * Find out you lat-long here - https://www.latlong.net/convert-address-to-lat-long.html
-* Add your lat-long to the MLHers array on line 21. Also add your name lol
+* Add your lat-long to the MLHers array on line 15. Also add your name lol
 * Thats it!
 
 
