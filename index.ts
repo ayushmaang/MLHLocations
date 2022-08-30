@@ -1,13 +1,26 @@
-/**
- * @license
- * Copyright 2019 Google LLC. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+type LatLong = {
+  lat: number,
+  lng: number,
+}
+
+type MLHer = {
+  location: LatLong
+  name: string
+};
 
 // Initialize and add the map
 function initMap(): void {
-  // The location of Uluru
-  const uluru = { lat: -25.344, lng: 131.031 };
+
+  // Add your location here!!
+  const mlhTeam: MLHer[] = [
+    {
+      location: { lat: 39.0438, lng: -77.4874 }, name: "Ayush Ganotra"
+    },
+    {
+      location: { lat: 37.774929, lng: -122.419418 }, name: "Ayush Ganotra"
+    }
+  ]
+
   const ashburn = { lat: 39.0438, lng: -77.4874 };
   // The map, centered at Uluru
   const map = new google.maps.Map(
@@ -18,16 +31,23 @@ function initMap(): void {
     }
   );
 
-  // The marker, positioned at Uluru
-  const marker = new google.maps.Marker({
-    position: uluru,
-    map: map,
-  });
-  const marker2 = new google.maps.Marker({
-    position: ashburn,
-    map: map,
-    title: "Ayush ",
-  });
+  const markers: google.maps.Marker[] = []
+
+  mlhTeam.forEach(function (friendo) {
+    new google.maps.Marker({
+      position: friendo.location,
+      map: map,
+      title: friendo.name,
+    })
+  }
+  );
+
+
+  // const marker2 = new google.maps.Marker({
+  //   position: ashburn,
+  //   map: map,
+  //   title: "Ayush",
+  // });
 
 }
 
@@ -37,4 +57,4 @@ declare global {
   }
 }
 window.initMap = initMap;
-export {};
+export { };
