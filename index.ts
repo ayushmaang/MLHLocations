@@ -14,6 +14,7 @@ function initMap(): void {
   // Add your location here!!
   const mlhTeam: MLHer[] = [
     {
+      location: { lat: 39.230750, lng: -76.701770 }, name: "Alina Momin",
       location: { lat: 37.774929, lng: -122.419418 }, name: "Ayush Ganotra"
     }
   ]
