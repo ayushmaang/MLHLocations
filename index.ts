@@ -14,9 +14,6 @@ function initMap(): void {
   // Add your location here!!
   const mlhTeam: MLHer[] = [
     {
-      location: { lat: 39.0438, lng: -77.4874 }, name: "Ayush Ganotra"
-    },
-    {
       location: { lat: 37.774929, lng: -122.419418 }, name: "Ayush Ganotra"
     }
   ]
@@ -41,13 +38,6 @@ function initMap(): void {
     })
   }
   );
-
-
-  // const marker2 = new google.maps.Marker({
-  //   position: ashburn,
-  //   map: map,
-  //   title: "Ayush",
-  // });
 
 }
 
