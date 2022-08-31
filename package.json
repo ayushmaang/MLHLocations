@@ -1,5 +1,5 @@
 {
-  "name": "add-map",
+  "name": "MLHTeam",
   "description": "Samples for Google Maps JavaScript",
   "version": "2.1.4",
   "keywords": [
@@ -8,14 +8,6 @@
     "maps",
     "samples"
   ],
-  "homepage": "https://github.com/googlemaps/js-samples#readme",
-  "bugs": {
-    "url": "https://github.com/googlemaps/js-samples/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/googlemaps/js-samples.git"
-  },
   "files": [],
   "license": "Apache-2.0",
   "scripts": {
@@ -31,5 +23,8 @@
     "vite": "^2.9.9"
   },
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^9.9.3",
+    "jquery": "^3.6.1"
+  }
 }

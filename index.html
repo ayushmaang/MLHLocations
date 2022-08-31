@@ -1,30 +1,44 @@
 <!DOCTYPE html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
 <html>
-  <head>
-    <title>MLH Team!</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.ts"></script>
-  </head>
-  <body>
-    <div style="text-align: center;">Hover over for 5 seconds pins to see names</div>
-    <!--The div element for the map -->
-    <div id="map"></div>
-    <!--
+<head>
+  <title>MLH Team!</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <script type="module" src="index.ts"></script>
+</head>
+
+<body>
+  <h1 style="text-align: center;">Welcome to the MLH Team Map!</h1>
+  <div>
+    <h2 style="text-align: center; color:red; ">Not seeing a pop up? Allow pop ups to log in, top right of url bar.</h2>
+    <p style="text-align: center; margin-top: -1%; margin-bottom: 2%;">It helps the website get your name and is there
+      for security purposes.
+    </p>
+  </div>
+  <div style="text-align: center; margin-bottom: -0%; ">
+    Add the city you're from, or neighborhood if you live in a city.
+  </div>
+  <div style="text-align: center;">
+    <input type="text" id="autocomplete" size="50" />
+    <button id="markerAdder">
+      Add Marker!
+    </button>
+
+  </div>
+  <h3 style="text-align: center;">Hover over for 5 seconds pins to see names</h3>
+  <!--The div element for the map -->
+  <div id="map"></div>
+  <!--
      The `defer` attribute causes the callback to execute after the full HTML
      document has been parsed. For non-blocking uses, avoiding race conditions,
      and consistent behavior across browsers, consider loading using Promises
      with https://www.npmjs.com/package/@googlemaps/js-api-loader.
     -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7khT58mCuadUv2AIR1xREKo1IVenDKnE&callback=initMap"
-      defer
-    ></script>
-  </body>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7khT58mCuadUv2AIR1xREKo1IVenDKnE&libraries=places&callback=initMap"
+    defer></script>
+</body>
+
 </html>
