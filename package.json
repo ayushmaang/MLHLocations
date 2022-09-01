@@ -20,11 +20,12 @@
   "main": "index.ts",
   "devDependencies": {
     "@types/google.maps": "^3.48.8",
-    "typescript": "^4.6.4",
+    "typescript": "^4.8.2",
     "vite": "^2.9.9"
   },
   "private": true,
   "dependencies": {
+    "express": "^4.18.1",
     "firebase": "^9.9.3",
     "jquery": "^3.6.1",
     "yarn": "^1.22.19"
