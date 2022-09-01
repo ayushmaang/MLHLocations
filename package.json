@@ -28,6 +28,7 @@
     "express": "^4.18.1",
     "firebase": "^9.9.3",
     "jquery": "^3.6.1",
+    "jsdom": "^20.0.0",
     "yarn": "^1.22.19"
   },
   "engines": {

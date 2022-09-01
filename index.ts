@@ -1,18 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
 import { getDatabase, ref, set, get, child } from "firebase/database";
 import * as $ from 'jquery';
-
-
-type LatLong = {
-  lat: number,
-  lng: number,
-}
-
-type MLHer = {
-  location: LatLong
-  name: string
-};
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -33,29 +22,21 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-auth.onAuthStateChanged(function (user) {
-  if (user) {
-    console.log(auth.currentUser);
-  } else {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
+getRedirectResult(auth).then(function (result) {
+  console.log(result);
+  if (result?.user) {
+    console.log(result.user);
+    var user = result.user;
+    $("#markerAdder").removeClass("disabled");
   }
-});
+  else {
+    $("#markerAdder").addClass("disabled");
+  }
+})
+
+function signIn() {
+  signInWithRedirect(auth, provider);
+}
 
 
 const database = getDatabase(app);
@@ -123,6 +104,7 @@ async function initMap() {
 }
 
 document.getElementById("markerAdder").addEventListener("click", addMarker)
+document.getElementById("signInWithGoogle").addEventListener("click", signIn)
 
 declare global {
   interface Window {
