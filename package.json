@@ -17,6 +17,7 @@
     "test": "tsc --no-emit",
     "preview": "vite preview"
   },
+  "main": "index.ts",
   "devDependencies": {
     "@types/google.maps": "^3.48.8",
     "typescript": "^4.6.4",
@@ -25,6 +26,10 @@
   "private": true,
   "dependencies": {
     "firebase": "^9.9.3",
-    "jquery": "^3.6.1"
+    "jquery": "^3.6.1",
+    "yarn": "^1.22.19"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
