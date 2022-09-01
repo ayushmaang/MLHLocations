@@ -7,29 +7,37 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
   
-  <script type="module" crossorigin src="/assets/index.3c1b52a8.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script type="module" crossorigin src="/assets/index.48c35a93.js"></script>
   <link rel="stylesheet" href="/assets/index.6fa90652.css">
 </head>
 
 <body>
   <h1 style="text-align: center;">Welcome to the MLH Team Map!</h1>
+  <h3 style="text-align: center; color: red;">Please log in first!</h3>
   <div>
-    <h2 style="text-align: center; color:red; ">Not seeing a pop up? Allow pop ups to log in, top right of url bar.</h2>
-    <p style="text-align: center; margin-top: -1%; margin-bottom: 2%;">It helps the website get your name and is there
+    <p style="text-align: center; margin-top: -1%; margin-bottom: 1%;">It helps the website get your name and is there
       for security purposes.
     </p>
   </div>
-  <div style="text-align: center; margin-bottom: -0%; ">
-    Add the city you're from, or neighborhood if you live in a city.
+  <div class="col s12 m6 offset-m3 center-align">
+    <a class="oauth-container btn darken-4 white black-text" id="signInWithGoogle" style="text-transform:none">
+      <div class="left">
+        <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      </div>
+      Login with Google
+    </a>
   </div>
   <div style="text-align: center;">
-    <input type="text" id="autocomplete" size="50" />
-    <button id="markerAdder">
-      Add Marker!
-    </button>
-
+    <div class="input-field inline">
+      <input type="text" style="margin-right: 40px; padding-right: 5%;" id="autocomplete" />
+      <span class="helper-text">Enter the city your from.</span>
+    </div>
+    <a id="markerAdder" style="margin-left:2%" class="waves-effect waves-light btn">Add Marker</a>
   </div>
-  <h3 style="text-align: center;">Hover over for 5 seconds pins to see names</h3>
+  <h4 style="text-align: center;">Hover over for 5 seconds pins to see names</h4>
   <!--The div element for the map -->
   <div id="map"></div>
   <!--
