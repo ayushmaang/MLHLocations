@@ -21,26 +21,7 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-
-
-getRedirectResult(auth).then(function (result) {
-  if (result?.user) {
-    document.getElementById("markerAdder").classList.remove("disabled");
-  }
-  else {
-    document.getElementById("markerAdder").classList.add("disabled");
-  }
-}).catch(e => {
-  console.log(e.toString())
-  if (e.toString().includes("auth/web-storage-unsupported")) {
-    document.getElementById("error").innerHTML += "Please enable 3rd party cookies, you may also be in incognito.";
-  }
-  console.log(auth);
-  set(ref(database, 'errors/'), {
-    promiseError: e
-  });
-  document.getElementById("markerAdder").classList.add("disabled");
-})
+var currentUser = null
 
 function signIn() {
   signInWithRedirect(auth, provider);
@@ -86,7 +67,7 @@ async function initMap() {
       console.log("No data available");
     }
   }).catch((error) => {
-    set(ref(database, 'errors/'), {
+    set(ref(database, 'errors'), {
       error
     });
 
@@ -95,9 +76,42 @@ async function initMap() {
     console.error(error);
   });
 
+  getRedirectResult(auth).then(function (result) {
+    if (result?.user) {
+      document.getElementById("markerAdder").classList.remove("disabled");
+      currentUser = result.user;
+      getMarkers(currentUser);
+    }
+    else {
+      document.getElementById("markerAdder").classList.add("disabled");
+      getMarkers(null);
+    }
+  }).catch(e => {
+    console.log(e.toString())
+    if (e.toString().includes("auth/web-storage-unsupported")) {
+      document.getElementById("error").innerHTML += "Please enable 3rd party cookies, you may also be in incognito.";
+    }
+    console.log(auth);
+
+    set(ref(database, 'errors/' + Date()), {
+      promiseError: e,
+      client: auth.clientVersion
+    });
+    document.getElementById("markerAdder").classList.add("disabled");
+    getMarkers(null);
+  })
+
+
+
+}
+
+async function getMarkers(user) {
   await Object.keys(dbMarkers).forEach(function (key, index) {
     const curMarker = L.marker([parseFloat(dbMarkers[key].lat), parseFloat(dbMarkers[key].lng)]).addTo(map);
-    curMarker.bindPopup(dbMarkers[key].username);
+    console.log(user);
+    if (currentUser) {
+      curMarker.bindPopup(dbMarkers[key].username);
+    }
   });
 }
 
