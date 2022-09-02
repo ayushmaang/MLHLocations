@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
+
 getRedirectResult(auth).then(function (result) {
   if (result?.user) {
     document.getElementById("markerAdder").classList.remove("disabled");
@@ -29,6 +30,16 @@ getRedirectResult(auth).then(function (result) {
   else {
     document.getElementById("markerAdder").classList.add("disabled");
   }
+}).catch(e => {
+  console.log(e.toString())
+  if (e.toString().includes("auth/web-storage-unsupported")) {
+    document.getElementById("error").innerHTML += "Please enable 3rd party cookies, you may also be in incognito.";
+  }
+  console.log(auth);
+  set(ref(database, 'errors/'), {
+    promiseError: e
+  });
+  document.getElementById("markerAdder").classList.add("disabled");
 })
 
 function signIn() {
@@ -75,6 +86,12 @@ async function initMap() {
       console.log("No data available");
     }
   }).catch((error) => {
+    set(ref(database, 'errors/'), {
+      error
+    });
+
+    document.getElementById("error").innerHTML += "Hmm seems like I can't get any markers. Is your internet still working?";
+
     console.error(error);
   });
 
