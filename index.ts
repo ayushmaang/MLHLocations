@@ -56,20 +56,27 @@ export function addMarker() {
       lat: data.results[0].geometry.location.lat,
       lng: data.results[0].geometry.location.lng
     });
-
     location.reload();
-
   })
-
-
 }
 
-// Initialize and add the map
+let map = new L.Map('map', {
+  center: new L.LatLng(40.731253, -73.996139),
+  zoom: 4,
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+
+var marker = L.marker([51.5, -0.09]).addTo(map);
+marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
+
+
+
+
 async function initMap() {
-
-  var input = document.getElementById('autocomplete');
-  new google.maps.places.Autocomplete(input);
-
   await get(child(dbRef, `markers`)).then((snapshot) => {
     if (snapshot.exists()) {
       dbMarkers = snapshot.val();
@@ -80,28 +87,16 @@ async function initMap() {
     console.error(error);
   });
 
-  const ashburn = { lat: 39.0438, lng: -77.4874 };
-  // The map, centered at Uluru
-  const map = new google.maps.Map(
-    document.getElementById("map") as HTMLElement,
-    {
-      zoom: 3,
-      center: ashburn,
-    }
-  );
-
-  const markers: google.maps.Marker[] = []
-
-  console.log(dbMarkers)
-
   await Object.keys(dbMarkers).forEach(function (key, index) {
-    new google.maps.Marker({
-      position: { lat: parseFloat(dbMarkers[key].lat), lng: parseFloat(dbMarkers[key].lng) },
-      map: map,
-      title: dbMarkers[key].username,
-    })
+
+    console.log(dbMarkers);
+
+    const curMarker = L.marker([parseFloat(dbMarkers[key].lat), parseFloat(dbMarkers[key].lng)]).addTo(map);
+    curMarker.bindPopup(dbMarkers[key].username);
   });
 }
+
+initMap();
 
 document.getElementById("markerAdder").addEventListener("click", addMarker)
 document.getElementById("signInWithGoogle").addEventListener("click", signIn)
@@ -111,5 +106,5 @@ declare global {
     initMap: () => void;
   }
 }
-window.initMap = initMap;
+// window.initMap = initMap;
 export { };

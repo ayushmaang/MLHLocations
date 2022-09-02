@@ -5,9 +5,8 @@
  */
 /* Set the size of the div element that contains the map */
 html, body, #map {
-  width: 100%;
+  width: 99%;
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 1%;
+  padding: 1%;
 }
-
