@@ -23,14 +23,11 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
 getRedirectResult(auth).then(function (result) {
-  console.log(result);
   if (result?.user) {
-    console.log(result.user);
-    var user = result.user;
-    $("#markerAdder").removeClass("disabled");
+    document.getElementById("markerAdder").classList.remove("disabled");
   }
   else {
-    $("#markerAdder").addClass("disabled");
+    document.getElementById("markerAdder").classList.add("disabled");
   }
 })
 
@@ -61,20 +58,14 @@ export function addMarker() {
 }
 
 let map = new L.Map('map', {
-  center: new L.LatLng(40.731253, -73.996139),
-  zoom: 4,
+  center: new L.LatLng(20, 0),
+  zoom: 2,
 });
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '© OpenStreetMap'
 }).addTo(map);
-
-var marker = L.marker([51.5, -0.09]).addTo(map);
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
-
-
-
 
 async function initMap() {
   await get(child(dbRef, `markers`)).then((snapshot) => {
@@ -88,9 +79,6 @@ async function initMap() {
   });
 
   await Object.keys(dbMarkers).forEach(function (key, index) {
-
-    console.log(dbMarkers);
-
     const curMarker = L.marker([parseFloat(dbMarkers[key].lat), parseFloat(dbMarkers[key].lng)]).addTo(map);
     curMarker.bindPopup(dbMarkers[key].username);
   });
