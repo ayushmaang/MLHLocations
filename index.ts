@@ -77,6 +77,7 @@ async function initMap() {
   });
 
   getRedirectResult(auth).then(function (result) {
+    console.log(result);
     if (result?.user) {
       document.getElementById("markerAdder").classList.remove("disabled");
       currentUser = result.user;
@@ -100,19 +101,39 @@ async function initMap() {
     document.getElementById("markerAdder").classList.add("disabled");
     getMarkers(null);
   })
-
-
-
 }
 
 async function getMarkers(user) {
+
+  const lats = []
+  const longs = []
+  const names = []
+
+
   await Object.keys(dbMarkers).forEach(function (key, index) {
-    const curMarker = L.marker([parseFloat(dbMarkers[key].lat), parseFloat(dbMarkers[key].lng)]).addTo(map);
-    console.log(user);
-    if (currentUser) {
-      curMarker.bindPopup(dbMarkers[key].username);
+
+    const curLat = parseFloat(dbMarkers[key].lat)
+    const curLong = parseFloat(dbMarkers[key].lng)
+
+    if (lats.includes(curLat)) {
+      names[lats.indexOf(curLat)] += "<br>" + dbMarkers[key].username;
+    }
+    else {
+      lats.push(curLat);
+      longs.push(curLong);
+      names.push(dbMarkers[key].username);
     }
   });
+
+  console.log(lats)
+  console.log(lats.includes(39.2903848))
+
+  for (var i = 0; i < lats.length; i++) {
+    const curMarker = L.marker([lats[i], longs[i]]).addTo(map);
+    if (currentUser) {
+      curMarker.bindPopup(names[i]);
+    }
+  }
 }
 
 initMap();
@@ -125,5 +146,5 @@ declare global {
     initMap: () => void;
   }
 }
-// window.initMap = initMap;
+window.initMap = initMap;
 export { };
